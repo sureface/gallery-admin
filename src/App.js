@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import './App.scss';
 import Dashboard from "./pages/Dashboard";
 import AddList from "./components/addList";
+import EditAlbum from "./components/editAlbum";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Switch>
             <Route path="/" exact component={Dashboard} />
             <Route path="/list" exact component={AddList} />
+            <Route path="/edit/:id" exact component={EditAlbum} />
         </Switch>
     </BrowserRouter>
   );
