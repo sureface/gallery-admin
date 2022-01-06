@@ -3,7 +3,7 @@ import NavigationBar from "./navigationBar";
 import {Link, useHistory} from "react-router-dom";
 import {Breadcrumb, BreadcrumbItem} from "reactstrap";
 import {MdOutlineClose} from "react-icons/md";
-import { ToastContainer, toast } from 'react-toastify';
+import {toast, ToastContainer} from 'react-toastify';
 import axios from "axios";
 
 
@@ -11,8 +11,8 @@ const AddList = () => {
     let history = useHistory();
 
     const [albumName, setAlbumName] = useState("");
-    const [albumDescription, setAlbumDescription] = useState("");
 
+    const [albumDescription, setAlbumDescription] = useState("");
 
     const [thumbnailImage, setThumbnailImage] = useState(null);
 
@@ -140,7 +140,7 @@ const AddList = () => {
     return (
         <div className="addList">
             <NavigationBar/>
-            <ToastContainer />
+            <ToastContainer/>
             <div className="container">
                 <div className="my-3">
                     <Breadcrumb>
@@ -162,7 +162,9 @@ const AddList = () => {
                                 {
                                     thumbnailIsLoading ?
                                         <div>
-                                            <div className="spinner-border spinner-border-sm text-primary thumbnailLoaderSpinner" role="status">
+                                            <div
+                                                className="spinner-border spinner-border-sm text-primary thumbnailLoaderSpinner"
+                                                role="status">
                                                 <span className="visually-hidden">Loading...</span>
                                             </div>
                                         </div>
@@ -177,8 +179,8 @@ const AddList = () => {
                                 <div className="thumbnailOverview">
                                     <img src={process.env["REACT_APP_API"] + "/" + thumbnailImage}
                                          alt="oops something wrong !"/>
-                                    <div className="thumbnailClose" onClick={() =>  setThumbnailImage(null)}>
-                                        <MdOutlineClose  className="thumbnailClose_icon"/>
+                                    <div className="thumbnailClose" onClick={() => setThumbnailImage(null)}>
+                                        <MdOutlineClose className="thumbnailClose_icon"/>
                                     </div>
                                 </div>
                                 : ""
@@ -203,7 +205,9 @@ const AddList = () => {
                                 {
                                     imagesIsLoading ?
                                         <div>
-                                            <div className="spinner-border spinner-border-sm text-primary thumbnailLoaderSpinner" role="status">
+                                            <div
+                                                className="spinner-border spinner-border-sm text-primary thumbnailLoaderSpinner"
+                                                role="status">
                                                 <span className="visually-hidden">Loading...</span>
                                             </div>
                                         </div>
@@ -218,12 +222,15 @@ const AddList = () => {
                                     <div className="d-flex align-items-center flex-wrap">
                                         {
                                             images.map((item, index) => {
-                                                return(
+                                                return (
                                                     <div key={index} className="px-2 mb-4 deleteImages">
-                                                        <img src={process.env["REACT_APP_API"] + "/storage/uploads/" + item.path} alt="oops something wrong !"/>
+                                                        <img
+                                                            src={process.env["REACT_APP_API"] + "/storage/uploads/" + item.path}
+                                                            alt="oops something wrong !"/>
 
-                                                        <div className="imagesClose" onClick={() =>  imagesOnclickHandler(index)}>
-                                                            <MdOutlineClose  className="imagesClose_icon"/>
+                                                        <div className="imagesClose"
+                                                             onClick={() => imagesOnclickHandler(index)}>
+                                                            <MdOutlineClose className="imagesClose_icon"/>
                                                         </div>
                                                     </div>
                                                 )
