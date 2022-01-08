@@ -18,6 +18,8 @@ const AddList = () => {
 
     const [images, setImages] = useState(null);
 
+    const [order, setOrder] = useState(null);
+
     const [disableAdd, setDisableAdd] = useState(false);
 
     const [thumbnailIsLoading, setThumbnailIsLoading] = useState(false);
@@ -115,12 +117,13 @@ const AddList = () => {
                         Description: albumDescription,
                         Heading: albumName,
                         Images: imagesPath,
-                        Thumbnail: {path: thumbnailPath}
+                        Thumbnail: {path: thumbnailPath},
+                        Order: order
                     }
                 }, {headers: {'Content-Type': 'application/json'}})
                     .then((res) => {
                         toast.success(res.data.Heading + " альбом успешно сохранено");
-                        history.push("/");
+                        history.push("/dashboard");
                     })
                     .catch((err) => {
                         console.log(err)
@@ -134,7 +137,7 @@ const AddList = () => {
     }
 
     const backDashboard = () => {
-        history.push("/")
+        history.push("/dashboard")
     }
 
     return (
@@ -218,7 +221,7 @@ const AddList = () => {
 
                         {
                             images ?
-                                <div className="thumbnailOverview mb-5">
+                                <div className="thumbnailOverview mb-3">
                                     <div className="d-flex align-items-center flex-wrap">
                                         {
                                             images.map((item, index) => {
@@ -241,6 +244,12 @@ const AddList = () => {
                                 </div>
                                 : ""
                         }
+
+                        <div className="form-group mb-3">
+                            <label htmlFor="order" className="mb-2">Choose order gallery</label>
+                            <input className="form-control" type="number" id="order" name="order" placeholder="order..."
+                                   required onChange={(e) => setOrder(e.target.value)}/>
+                        </div>
 
                         <div className="d-flex align-items-center justify-content-between w-100">
                             <button type="button" className={disableAdd ? "btn btn-danger disabled" : "btn btn-danger"}

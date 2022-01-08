@@ -10,15 +10,12 @@ import axios from "axios";
 const EditAlbum = (props) => {
     let history = useHistory();
 
-    // 71 210
-
-    // console.log(this.props.match.params.id)
-
     const [albumName, setAlbumName] = useState("");
     const [albumDescription, setAlbumDescription] = useState("");
     const [data, setData] = useState([]);
     const [thumbnailImage, setThumbnailImage] = useState(null);
     const [images, setImages] = useState(null);
+    const [order, setOrder] = useState(0);
     const [checkData, setCheckData] = useState(false);
     const [thumbnailIsLoading, setThumbnailIsLoading] = useState(false);
     const [imagesIsLoading, setImagesIsLoading] = useState(false);
@@ -31,7 +28,7 @@ const EditAlbum = (props) => {
                 let data = res.data.entries
                 setData(res.data.entries);
                 setImages(data[0].Images);
-                console.log(data[0].Images,  "get images")
+                setOrder(parseInt(data[0].Order));
                 setCheckData(true);
 
                 setAlbumName(data[0].Heading);
@@ -100,8 +97,6 @@ const EditAlbum = (props) => {
                     imagesPath.push({path: "storage/uploads/" + imagesAssets[i].path})
                 }
 
-                console.log(imagesPath, "imagesAssets");
-
                 let addImages = images.concat(imagesPath);
 
                 setImages(addImages);
@@ -143,13 +138,13 @@ const EditAlbum = (props) => {
                 Heading: albumName,
                 Images: images,
                 Thumbnail: {path: thumbnailImage},
-                _id: props.match.params.id
+                _id: props.match.params.id,
+                Order: order
             }
         }, {headers: {'Content-Type': 'application/json'}})
             .then((res) => {
-                console.log(res)
                 toast.success(res.data.Heading + " альбом успешно сохранено");
-                history.push("/");
+                history.push("/dashboard");
             })
             .catch((err) => {
                 console.log(err)
@@ -158,14 +153,8 @@ const EditAlbum = (props) => {
     }
 
     const backDashboard = () => {
-        history.push("/")
+        history.push("/dashboard")
     }
-
-    console.log(props.match.params.id);
-    // let heading = "";
-    // if(data[0]) heading = data[0].hasOwnProperty("Heading") ? data[0].Heading : ""
-
-    console.log(checkData)
 
     return (
         <div className="EditAlbum">
@@ -215,7 +204,7 @@ const EditAlbum = (props) => {
                             <input className="form-control mb-3" multiple type="file" name="uploadAlbum"
                                    id="uploadAlbum" onChange={(e) => uploadAlbumOnClickHandler(e)}/>
                         </div>
-                        <div className="thumbnailOverview mb-5">
+                        <div className="thumbnailOverview mb-3">
                             <div className="d-flex align-items-center flex-wrap">
                                 {
                                     checkData ?
@@ -238,6 +227,13 @@ const EditAlbum = (props) => {
 
                             </div>
                         </div>
+
+                        <div className="form-group mb-3">
+                            <label htmlFor="order" className="mb-2">Choose order gallery</label>
+                            <input className="form-control" type="number" id="order" name="order" placeholder="order..."
+                                   required value={order} onChange={(e) => setOrder(e.target.value)}/>
+                        </div>
+
                         <div className="d-flex align-items-center justify-content-between w-100">
                             <button type="button" className={disableAdd ? "btn btn-danger disabled" : "btn btn-danger"}
                                     onClick={() => backDashboard()}>Cancel

@@ -12,9 +12,10 @@ const ResultList = () => {
 
 
      const fetchApi = () => {
-        axios.get(`${process.env["REACT_APP_API"]}/api/collections/get/album?token=73ad18f6896b8a47f97bfe3f824958`)
+        axios.get(`${process.env["REACT_APP_API"]}/api/collections/get/album?token=73ad18f6896b8a47f97bfe3f824958&sort[Order]=1`)
             .then((res) => {
-                setData(res.data.entries);
+                let data = res.data.entries;
+                setData(data);
             })
             .catch((err) => {
                 console.log(err);
@@ -60,7 +61,7 @@ const ResultList = () => {
                 </div>
                 <div className="row">
                     {
-                        data.slice(0).reverse().map((item, index) => {
+                        data.map((item, index) => {
                             return (
                                 <div key={index}
                                      className="col-12 bg-white border-bottom py-1 d-flex align-items-center justify-content-between mb-2">
