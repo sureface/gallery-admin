@@ -60,42 +60,39 @@ const ResultList = () => {
                     <Link to="list" className="btn btn-success"><BsPlusLg className="me-2"/>Добавить</Link>
                 </div>
                 <div className="row">
-                    {
-                        data.map((item, index) => {
-                            return (
-                                <div key={index}
-                                     className="col-12 bg-white border-bottom py-1 d-flex align-items-center justify-content-between mb-2">
-                                    <table className="w-100">
-                                        <tbody>
-                                        <tr className="d-flex align-items-center justify-content-between">
-                                            <td className="d-flex align-items-center">
-                                                <div className="thumbnail"
-                                                     style={{backgroundImage: `url(${process.env["REACT_APP_API"] + "/" + item.Thumbnail.path})`}}>
-                                                </div>
-                                                <div className="me-4 fw-normal">{item.Heading}</div>
-                                            </td>
-                                            <td className="d-flex align-items-center justify-content-between">
-                                                <div className="d-flex align-items-center">
-                                                    <Link to={"/edit/" + item._id}>
-                                                        <button
-                                                            className="btn d-flex align-items-center justify-content-center py-2 px-1 me-2">
-                                                            <AiFillEdit className="add"/>
-                                                        </button>
-                                                    </Link>
+                    <div
+                        className="col-12 bg-white py-1 mb-2">
+                        {
+                            data.map((item, index) => {
+                                return (
+                                    <div key={index}
+                                         className="w-100 d-flex align-items-center justify-content-between py-2 border-bottom">
+                                        <div className="d-flex align-items-center">
+                                            <div className="thumbnail"
+                                                 style={{backgroundImage: `url(${process.env["REACT_APP_API"] + "/" + item.Thumbnail.path})`}}>
+                                            </div>
+                                            <div className="me-4 fw-normal">{item.Heading}</div>
+                                        </div>
+                                        <div className="d-flex align-items-center justify-content-between">
+                                            <div className="d-flex align-items-center">
+                                                <Link to={"/edit/" + item._id}>
                                                     <button
-                                                        className="btn d-flex align-items-center justify-content-center py-2 px-1"
-                                                        onClick={() => removeClickHandler(item._id)}><BsFillTrashFill
-                                                        className="remove text-danger"/></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            )
-                        })
-                    }
+                                                        className="btn d-flex align-items-center justify-content-center py-2 px-1 me-2">
+                                                        <AiFillEdit className="add"/>
+                                                    </button>
+                                                </Link>
+                                                <button
+                                                    className="btn d-flex align-items-center justify-content-center py-2 px-1"
+                                                    onClick={() => removeClickHandler(item._id)}><BsFillTrashFill
+                                                    className="remove text-danger"/></button>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                )
+                            })
+                        }
+                    </div>
                 </div>
             </div>
         </div>

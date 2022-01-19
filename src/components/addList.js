@@ -118,10 +118,11 @@ const AddList = () => {
                         Heading: albumName,
                         Images: imagesPath,
                         Thumbnail: {path: thumbnailPath},
-                        Order: order
+                        Order: +order
                     }
                 }, {headers: {'Content-Type': 'application/json'}})
                     .then((res) => {
+                        console.log(res);
                         toast.success(res.data.Heading + " альбом успешно сохранено");
                         history.push("/dashboard");
                     })
